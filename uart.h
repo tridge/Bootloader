@@ -43,3 +43,5 @@ extern void uart_cinit(void *config);
 extern void uart_cfini(void);
 extern int uart_cin(void);
 extern void uart_cout(uint8_t *buf, unsigned len);
+extern void uart_setbaud(uint32_t baudrate);
+extern void uart_wait_transmission_complete();
