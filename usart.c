@@ -126,3 +126,12 @@ uart_cout(uint8_t *buf, unsigned len)
 	}
 }
 
+void uart_setbaud(const uint32_t baud)
+{
+        usart_set_baudrate(usart, baud);
+}
+
+void uart_wait_transmission_complete()
+{
+	while ((USART_SR(usart) & USART_SR_TC) == 0);
+}

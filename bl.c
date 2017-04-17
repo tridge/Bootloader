@@ -106,6 +106,8 @@
 #define PROTO_BOOT					0x30    // boot the application
 #define PROTO_DEBUG					0x31    // emit debug information - format not defined
 
+#define PROTO_SET_BAUD					0x33    // baud rate on uart
+
 #define PROTO_PROG_MULTI_MAX    64	// maximum PROG_MULTI size
 #define PROTO_READ_MULTI_MAX    255	// size of the size field
 
@@ -540,6 +542,40 @@ bootloader(unsigned timeout)
 
 			break;
 
+#ifndef TARGET_HW_PX4_PIO_V1
+		case PROTO_SET_BAUD: {
+#if INTERFACE_USART
+			/* expect arg then EOC */
+                        uint32_t baud = 0;
+
+                        if (cin_word(&baud, 100)) {
+                                goto cmd_bad;
+                        }
+
+			if (!wait_for_eoc(2)) {
+                                goto cmd_bad;
+			}
+
+                        // send the sync response for this command
+                        sync_response();
+
+                        // wait for uart shift-register to clear:
+                        uart_wait_transmission_complete();
+
+                        // *now* set the baudrate
+                        uart_setbaud(baud);
+
+                        // hark!  this is different to what every
+                        // other case in this switch does!  Most go
+                        // through sync_response down the bottom, but
+                        // we need to undertake an action after
+                        // returning the response...
+                        continue;
+#else
+                        goto cmd_bad;
+#endif
+                }
+#endif
 		// get device info
 		//
 		// command:		GET_DEVICE/<arg:1>/EOC
