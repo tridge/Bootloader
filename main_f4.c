@@ -754,6 +754,8 @@ main(void)
 
 #endif
 
+        try_boot = false;
+
 	/* Try to boot the app if we think we should just go straight there */
 	if (try_boot) {
 
