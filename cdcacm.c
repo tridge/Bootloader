@@ -388,7 +388,8 @@ void
 usb_cout(uint8_t *buf, unsigned count)
 {
 	if (usbd_dev) {
-		while (count) {
+		uint32_t retries = 0;
+		while (count && retries++ < 10000) {
 			unsigned len = (count > 64) ? 64 : count;
 			unsigned sent;
 
