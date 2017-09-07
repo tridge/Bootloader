@@ -149,7 +149,7 @@ struct boardinfo board_info = {
 	.board_rev	= 0,
 	.fw_size	= 0,
 
-	.systick_mhz	= 168,
+	.systick_mhz	= 96,
 };
 
 static void board_init(void);
@@ -161,19 +161,19 @@ static void board_init(void);
 /* standard clocking for all F4 boards */
 static const struct rcc_clock_scale clock_setup = {
 	.pllm = OSC_FREQ,
-	.plln = 336,
-	.pllp = 2,
-	.pllq = 7,
+	.plln = 384,
+	.pllp = 4,
+	.pllq = 8,
 #if defined(STM32F446) || defined(STM32F469)
 	.pllr = 2,
 #endif
 	.hpre = RCC_CFGR_HPRE_DIV_NONE,
-	.ppre1 = RCC_CFGR_PPRE_DIV_4,
-	.ppre2 = RCC_CFGR_PPRE_DIV_2,
+	.ppre1 = RCC_CFGR_PPRE_DIV_2,
+	.ppre2 = RCC_CFGR_PPRE_DIV_NONE,
 	.power_save = 0,
 	.flash_config = FLASH_ACR_ICE | FLASH_ACR_DCE | FLASH_ACR_LATENCY_5WS,
-	.apb1_frequency = 42000000,
-	.apb2_frequency = 84000000,
+	.apb1_frequency = 48000000,
+	.apb2_frequency = 96000000,
 };
 
 static uint32_t
