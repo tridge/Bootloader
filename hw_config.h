@@ -755,23 +755,27 @@
 # define USBPRODUCTID                   0x0017
 # define BOOT_DELAY_ADDRESS             0x000001a0
 
+//#define USB_FORCE_DISCONNECT            1
+
 # define BOARD_TYPE                     7
 # define _FLASH_KBYTES                  (*(uint16_t *)0x1fff7a22)
 # define BOARD_FLASH_SECTORS            ((_FLASH_KBYTES == 0x200) ? 7 : 11)
 # define BOARD_FLASH_SIZE               (_FLASH_KBYTES * 1024)
+//# define BOARD_FIRST_FLASH_SECTOR_TO_ERASE	2
+//# define APP_RESERVATION_SIZE			(2 * 16 * 1024) /* 2 16 Kib Sectors */
 
-# define BOARD_USART                    USART3
+# define BOARD_USART                    USART2
 # define BOARD_USART_CLOCK_REGISTER     RCC_APB1ENR
-# define BOARD_USART_CLOCK_BIT          RCC_APB1ENR_USART3EN
-
-# define BOARD_PORT_USART               GPIOD
-# define BOARD_PORT_USART_AF            GPIO_AF7
-# define BOARD_PIN_TX                   GPIO9
-# define BOARD_PIN_RX                   GPIO8
+# define BOARD_USART_CLOCK_BIT          RCC_APB1ENR_USART2EN
 # define BOARD_USART_PIN_CLOCK_REGISTER RCC_AHB1ENR
 # define BOARD_USART_PIN_CLOCK_BIT      RCC_AHB1ENR_IOPDEN
 
-# define OSC_FREQ                       16
+# define BOARD_PORT_USART               GPIOD
+# define BOARD_PORT_USART_AF            GPIO_AF7
+# define BOARD_PIN_TX                   GPIO5
+# define BOARD_PIN_RX                   GPIO6
+
+# define OSC_FREQ                       8
 
 # define BOARD_PIN_LED_ACTIVITY         GPIO0
 # define BOARD_PIN_LED_BOOTLOADER       GPIO7
@@ -780,7 +784,7 @@
 # define BOARD_LED_ON                   gpio_clear
 # define BOARD_LED_OFF                  gpio_set
 
-//# define USBMFGSTRING                   "APM"
+# define USBMFGSTRING                   "APM"
 
 #else
 # error Undefined Target Hardware
