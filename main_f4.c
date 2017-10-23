@@ -17,6 +17,8 @@
 #include "bl.h"
 #include "uart.h"
 
+//#pragma GCC optimize("O0")
+
 /* flash parameters that we should not really know */
 static struct {
 	uint32_t	sector_number;
@@ -158,6 +160,14 @@ static void board_init(void);
 #define POWER_DOWN_RTC_SIGNATURE    0xdeaddead // Written by app fw to not re-power on.
 #define BOOT_RTC_REG                MMIO32(RTC_BASE + 0x50)
 
+#ifndef APB1_FREQUENCY
+#define APB1_FREQUENCY 48000000
+#endif
+
+#ifndef APB2_FREQUENCY
+#define APB2_FREQUENCY 96000000
+#endif
+
 /* standard clocking for all F4 boards */
 static const struct rcc_clock_scale clock_setup = {
 	.pllm = OSC_FREQ,
@@ -172,8 +182,8 @@ static const struct rcc_clock_scale clock_setup = {
 	.ppre2 = RCC_CFGR_PPRE_DIV_NONE,
 	.power_save = 0,
 	.flash_config = FLASH_ACR_ICE | FLASH_ACR_DCE | FLASH_ACR_LATENCY_5WS,
-	.apb1_frequency = 48000000,
-	.apb2_frequency = 96000000,
+	.apb1_frequency = APB1_FREQUENCY,
+	.apb2_frequency = APB2_FREQUENCY,
 };
 
 static uint32_t
@@ -805,6 +815,8 @@ main(void)
 
 #endif
 
+        try_boot = false;
+        
 	/* Try to boot the app if we think we should just go straight there */
 	if (try_boot) {
 

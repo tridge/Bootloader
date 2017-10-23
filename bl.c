@@ -54,6 +54,8 @@
 #include "cdcacm.h"
 #include "uart.h"
 
+//#pragma GCC optimize("O0")
+
 // bootloader flash update protocol.
 //
 // Command format:
@@ -627,10 +629,12 @@ bootloader(unsigned timeout)
 			led_set(LED_OFF);
 
 			// verify the erase
-			for (address = 0; address < board_info.fw_size; address += 4)
-				if (flash_func_read_word(address) != 0xffffffff) {
+			for (address = 0; address < board_info.fw_size; address += 4) {
+				uint32_t v = flash_func_read_word(address);
+				if (v != 0xffffffff) {
 					goto cmd_fail;
 				}
+                        }
 
 			address = 0;
 
