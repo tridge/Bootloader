@@ -749,8 +749,8 @@
 # define APP_LOAD_ADDRESS               0x08004000
 # define BOOTLOADER_DELAY               5000
 # define BOARD_NUCLEOF412
-# define INTERFACE_USB                  0
-# define INTERFACE_USART                1
+# define INTERFACE_USB                  1
+# define INTERFACE_USART                0
 # define USBDEVICESTRING                "NUCLEO_F412"
 # define USBPRODUCTID                   0x0017
 # define BOOT_DELAY_ADDRESS             0x000001a0
@@ -775,9 +775,9 @@
 # define BOARD_PIN_TX                   GPIO2
 # define BOARD_PIN_RX                   GPIO3
 
-# define OSC_FREQ                       8
+# define OSC_FREQ                       24
 
-# define BOARD_PIN_LED_ACTIVITY         GPIO0
+# define BOARD_PIN_LED_ACTIVITY         GPIO6
 # define BOARD_PIN_LED_BOOTLOADER       GPIO7
 # define BOARD_PORT_LEDS                GPIOB
 # define BOARD_CLOCK_LEDS               RCC_AHB1ENR_IOPBEN
