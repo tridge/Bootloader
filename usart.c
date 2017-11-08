@@ -62,19 +62,19 @@ uart_cinit(void *config)
 	/* and enable */
 	usart_enable(usart);
 
-
-#if 0
-	usart_send_blocking(usart, 'B');
-	usart_send_blocking(usart, 'B');
-	usart_send_blocking(usart, 'B');
-	usart_send_blocking(usart, 'B');
+#if 1
+	while (1) {
+	  usart_send_blocking(usart, 'A');
+	  usart_send_blocking(usart, 'B');
+	  usart_send_blocking(usart, 'C');
+	  usart_send_blocking(usart, 'D');
+	}
 
 	while (true) {
 		int c;
 		c = usart_recv_blocking(usart);
 		usart_send_blocking(usart, c);
 	}
-
 #endif
 }
 

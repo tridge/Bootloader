@@ -54,7 +54,7 @@
 #include "cdcacm.h"
 #include "uart.h"
 
-//#pragma GCC optimize("O0")
+#pragma GCC optimize("O0")
 
 // bootloader flash update protocol.
 //

@@ -17,7 +17,7 @@
 #include "bl.h"
 #include "uart.h"
 
-//#pragma GCC optimize("O0")
+#pragma GCC optimize("O0")
 
 /* flash parameters that we should not really know */
 static struct {
