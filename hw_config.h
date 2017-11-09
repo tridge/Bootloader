@@ -749,8 +749,8 @@
 # define APP_LOAD_ADDRESS               0x08004000
 # define BOOTLOADER_DELAY               5000
 # define BOARD_NUCLEOF412
-# define INTERFACE_USB                  1
-# define INTERFACE_USART                0
+# define INTERFACE_USB                  0
+# define INTERFACE_USART                1
 # define USBDEVICESTRING                "NUCLEO_F412"
 # define USBPRODUCTID                   0x0017
 # define BOOT_DELAY_ADDRESS             0x000001a0

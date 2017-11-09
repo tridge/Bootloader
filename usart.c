@@ -62,12 +62,27 @@ uart_cinit(void *config)
 	/* and enable */
 	usart_enable(usart);
 
-#if 1
-        while (1) {
+#if 0
+        uint32_t counter = 0;
+        
+        while (true) {
             usart_send_blocking(usart, 'A');
             usart_send_blocking(usart, 'B');
             usart_send_blocking(usart, 'C');
             usart_send_blocking(usart, 'D');
+            if (counter++ == 1000) {
+                counter = 0;
+                uint32_t j;
+                for (j=0; j<10001; j++) {
+                    led_toggle(LED_BOOTLOADER);
+                    led_toggle(LED_ACTIVITY);
+                }
+            } else {
+                uint32_t j;
+                for (j=0; j<1000; j++) {
+                    led_toggle(LED_ACTIVITY);
+                }
+            }
         }
 
         while (true) {
