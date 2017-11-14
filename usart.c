@@ -41,7 +41,15 @@
 #include "bl.h"
 #include "uart.h"
 
+#pragma GCC optimize("O0")
+
 uint32_t usart;
+
+void delay_ms(uint32_t ms)
+{
+    volatile uint32_t counter = ms * 10000;
+    while (counter--) ;
+}
 
 void
 uart_cinit(void *config)
@@ -64,31 +72,30 @@ uart_cinit(void *config)
 
 #if 0
         uint32_t counter = 0;
-        
-        while (true) {
+        uint32_t loops = 1000000;
+        led_toggle(LED_BOOTLOADER);
+        while (loops--) {
             usart_send_blocking(usart, 'A');
             usart_send_blocking(usart, 'B');
             usart_send_blocking(usart, 'C');
             usart_send_blocking(usart, 'D');
             if (counter++ == 1000) {
                 counter = 0;
-                uint32_t j;
-                for (j=0; j<10001; j++) {
-                    led_toggle(LED_BOOTLOADER);
-                    led_toggle(LED_ACTIVITY);
-                }
-            } else {
-                uint32_t j;
-                for (j=0; j<1000; j++) {
-                    led_toggle(LED_ACTIVITY);
-                }
+                led_toggle(LED_BOOTLOADER);
+                usart_send_blocking(usart, '\n');
+                usart_send_blocking(usart, '*');
+                usart_send_blocking(usart, '*');
+                usart_send_blocking(usart, '*');
+                usart_send_blocking(usart, '\n');
+                delay_ms(500);
             }
         }
-
+#endif
+#if 0
         while (true) {
 		int c;
 		c = usart_recv_blocking(usart);
-		usart_send_blocking(usart, c);
+		usart_send_blocking(usart, c+1);
 	}
 #endif
 }
@@ -118,3 +125,4 @@ uart_cout(uint8_t *buf, unsigned len)
 		usart_send_blocking(usart, *buf++);
 	}
 }
+

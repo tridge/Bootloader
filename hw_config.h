@@ -746,7 +746,7 @@
 
 #elif defined(TARGET_HW_NUCLEO_F412)
 
-# define APP_LOAD_ADDRESS               0x08004000
+# define APP_LOAD_ADDRESS               0x0800C000
 # define BOOTLOADER_DELAY               5000
 # define BOARD_NUCLEOF412
 # define INTERFACE_USB                  0
@@ -761,8 +761,8 @@
 # define _FLASH_KBYTES                  (*(uint16_t *)0x1fff7a22)
 # define BOARD_FLASH_SECTORS            ((_FLASH_KBYTES == 0x200) ? 7 : 11)
 # define BOARD_FLASH_SIZE               (_FLASH_KBYTES * 1024)
-//# define BOARD_FIRST_FLASH_SECTOR_TO_ERASE	2
-//# define APP_RESERVATION_SIZE			(2 * 16 * 1024) /* 2 16 Kib Sectors */
+# define BOARD_FIRST_FLASH_SECTOR_TO_ERASE	2
+# define APP_RESERVATION_SIZE			(2 * 16 * 1024) /* 2 16 Kib Sectors */
 
 # define BOARD_USART                    USART2
 # define BOARD_USART_CLOCK_REGISTER     RCC_APB1ENR

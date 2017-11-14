@@ -815,7 +815,16 @@ main(void)
 
 #endif
 
-        try_boot = false;
+	/* start the interface */
+#if INTERFACE_USART
+	cinit(BOARD_INTERFACE_CONFIG_USART, USART);
+#endif
+#if INTERFACE_USB
+	cinit(BOARD_INTERFACE_CONFIG_USB, USB);
+#endif
+
+
+        try_boot = true;
         
 	/* Try to boot the app if we think we should just go straight there */
 	if (try_boot) {
@@ -834,15 +843,6 @@ main(void)
 		/* booting failed, stay in the bootloader forever */
 		timeout = 0;
 	}
-
-
-	/* start the interface */
-#if INTERFACE_USART
-	cinit(BOARD_INTERFACE_CONFIG_USART, USART);
-#endif
-#if INTERFACE_USB
-	cinit(BOARD_INTERFACE_CONFIG_USB, USB);
-#endif
 
 
 #if 0
