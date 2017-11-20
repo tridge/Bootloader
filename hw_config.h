@@ -741,17 +741,17 @@
 # define BOARD_FORCE_BL_STATE			1
 
 /****************************************************************************
- * TARGET_HW_NUCLEO_F412
+ * TARGET_HW_SKYVIPER_F412
  ****************************************************************************/
 
-#elif defined(TARGET_HW_NUCLEO_F412)
+#elif defined(TARGET_HW_SKYVIPER_F412)
 
 # define APP_LOAD_ADDRESS               0x0800C000
 # define BOOTLOADER_DELAY               5000
-# define BOARD_NUCLEOF412
+# define BOARD_SKYVIPERF412
 # define INTERFACE_USB                  0
 # define INTERFACE_USART                1
-# define USBDEVICESTRING                "NUCLEO_F412"
+# define USBDEVICESTRING                "SKYVIPER_F412"
 # define USBPRODUCTID                   0x0017
 # define BOOT_DELAY_ADDRESS             0x000001a0
 

@@ -52,7 +52,7 @@ TARGETS	= \
 	px4io_bl \
 	px4iov3_bl \
 	tapv1_bl \
-	nucleof412_bl \
+	skyviperf412_bl \
 	revo405_bl
 
 all:	$(TARGETS) sizes
@@ -115,8 +115,8 @@ tapv1_bl: $(MAKEFILE_LIST) $(LIBOPENCM3)
 aerofcv1_bl: $(MAKEFILE_LIST) $(LIBOPENCM3)
 	${MAKE} ${MKFLAGS} -f  Makefile.f4 TARGET_HW=AEROFC_V1 LINKER_FILE=stm32f4.ld TARGET_FILE_NAME=$@
 
-nucleof412_bl: $(MAKEFILE_LIST) $(LIBOPENCM3)
-	${MAKE} ${MKFLAGS} -f  Makefile.f4 TARGET_HW=NUCLEO_F412 LINKER_FILE=stm32f4.ld TARGET_FILE_NAME=$@
+skyviperf412_bl: $(MAKEFILE_LIST) $(LIBOPENCM3)
+	${MAKE} ${MKFLAGS} -f  Makefile.f4 TARGET_HW=SKYVIPER_F412 LINKER_FILE=stm32f4.ld TARGET_FILE_NAME=$@
 
 revo405_bl: $(MAKEFILE_LIST) $(LIBOPENCM3)
 	${MAKE} ${MKFLAGS} -f  Makefile.f4 TARGET_HW=REVO_405 LINKER_FILE=stm32f4.ld TARGET_FILE_NAME=$@
