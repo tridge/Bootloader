@@ -296,10 +296,11 @@ sys_tick_handler(void)
 {
 	unsigned i;
 
-	for (i = 0; i < NTIMERS; i++)
+	for (i = 0; i < NTIMERS; i++) {
 		if (timer[i] > 0) {
 			timer[i]--;
 		}
+        }
 
 	if ((_led_state == LED_BLINK) && (timer[TIMER_LED] == 0)) {
 		led_toggle(LED_BOOTLOADER);
@@ -482,6 +483,10 @@ bootloader(unsigned timeout)
 {
 	bl_type = NONE; // The type of the bootloader, whether loading from USB or USART, will be determined by on what port the bootloader recevies its first valid command.
 
+        if (timeout > 5000) {
+            timeout = 5000;
+        }
+        
 	uint32_t	address = board_info.fw_size;	/* force erase before upload will work */
 	uint32_t	first_word = 0xffffffff;
 
@@ -510,6 +515,7 @@ bootloader(unsigned timeout)
 		// Wait for a command byte
 		led_off(LED_ACTIVITY);
 
+                int counter = 1000000UL;
 		do {
 			/* if we have a timeout and the timer has expired, return now */
 			if (timeout && !timer[TIMER_BL_WAIT]) {
@@ -518,6 +524,11 @@ bootloader(unsigned timeout)
 
 			/* try to get a byte from the host */
 			c = cin_wait(0);
+
+                        counter--;
+                        if (counter <= 0) {
+                            return;
+                        }
 
 		} while (c < 0);
 

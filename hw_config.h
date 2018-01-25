@@ -788,11 +788,11 @@
 
 #elif defined(TARGET_HW_REVO_405)
 
-# define APP_LOAD_ADDRESS               0x0800C000
+# define APP_LOAD_ADDRESS               0x08010000
 # define BOOTLOADER_DELAY               5000
 # define BOARD_REVO405
 # define INTERFACE_USB                  1
-# define INTERFACE_USART                1
+# define INTERFACE_USART                0
 # define USBDEVICESTRING                "REVO_405"
 # define USBPRODUCTID                   0x0017
 # define BOOT_DELAY_ADDRESS             0x000001a0
@@ -801,13 +801,14 @@
 #define APB1_FREQUENCY                  42000000
 #define APB2_FREQUENCY                  84000000
 
+# define BOARD_USB_VBUS_SENSE_DISABLED
 //#define USB_FORCE_DISCONNECT            1
 
 # define BOARD_TYPE                     70
 # define BOARD_FLASH_SECTORS            11
 # define BOARD_FLASH_SIZE               (1024 * 1024)
-# define BOARD_FIRST_FLASH_SECTOR_TO_ERASE	2
-# define APP_RESERVATION_SIZE			(2 * 16 * 1024) /* 2 16 Kib Sectors */
+# define BOARD_FIRST_FLASH_SECTOR_TO_ERASE	3
+# define APP_RESERVATION_SIZE			(3 * 16 * 1024) /* 2 16 Kib Sectors */
 
 # define BOARD_USART                    USART1
 # define BOARD_USART_CLOCK_REGISTER 	RCC_APB2ENR
