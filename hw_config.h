@@ -797,12 +797,21 @@
 # define USBPRODUCTID                   0x0017
 # define BOOT_DELAY_ADDRESS             0x000001a0
 
+#define BOARD_BOOT_FAIL_DETECT   1
+
 // F405 has lower maximum peripheral bus frequencies
 #define APB1_FREQUENCY                  42000000
 #define APB2_FREQUENCY                  84000000
 
 # define BOARD_USB_VBUS_SENSE_DISABLED
 //#define USB_FORCE_DISCONNECT            1
+
+#define USB_SENSE_PIN                   GPIO5
+#define USB_SENSE_PORT                  GPIOC
+#define USB_SENSE_STATE                 0
+
+#define USB_SENSE_CLOCK_REGISTER        RCC_AHB1ENR
+#define USB_SENSE_CLOCK_BIT             RCC_AHB1ENR_IOPCEN
 
 # define BOARD_TYPE                     70
 # define BOARD_FLASH_SECTORS            11
