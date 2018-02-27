@@ -336,6 +336,8 @@ board_test_usart_receiving_break()
 }
 #endif
 
+
+
 static void
 board_init(void)
 {
@@ -358,9 +360,16 @@ board_init(void)
 #endif
 
 #if INTERFACE_USB
+ #if defined(USB_SENSE_CLOCK_REGISTER) && defined(USB_SENSE_CLOCK_BIT)
+    rcc_peripheral_enable_clock(&USB_SENSE_CLOCK_REGISTER, USB_SENSE_CLOCK_BIT);
+  #if defined(USB_SENSE_PIN) && defined(USB_SENSE_PORT)
+    gpio_mode_setup(USB_SENSE_PORT, GPIO_MODE_INPUT, GPIO_PUPD_PULLDOWN, USB_SENSE_PIN);
+  #endif
+ #else
+    /* enable Port A GPIO9 to sample VBUS */
+    rcc_peripheral_enable_clock(&RCC_AHB1ENR, RCC_AHB1ENR_IOPAEN);
+ #endif
 
-	/* enable Port A GPIO9 to sample VBUS */
-	rcc_peripheral_enable_clock(&RCC_AHB1ENR, RCC_AHB1ENR_IOPAEN);
 #endif
 
 #if INTERFACE_USART
@@ -688,6 +697,7 @@ led_toggle(unsigned led)
 	}
 }
 
+
 /* we should know this, but we don't */
 #ifndef SCB_CPACR
 # define SCB_CPACR (*((volatile uint32_t *) (((0xE000E000UL) + 0x0D00UL) + 0x088)))
@@ -789,7 +799,15 @@ main(void)
 	 * we then time out.
 	 */
 #if defined(BOARD_USB_VBUS_SENSE_DISABLED)
+ #if defined(USB_SENSE_PIN) && defined(USB_SENSE_PORT)
+	if (gpio_get(USB_SENSE_PORT, USB_SENSE_PIN) != USB_SENSE_STATE) {
+
+            /* don't try booting before we set up the bootloader */
+	    try_boot = false;
+	}
+ #else
 	try_boot = false;
+ #endif
 #else
 	if (gpio_get(GPIOA, GPIO9) != 0) {
 
