@@ -25,20 +25,19 @@
  ***********************************************************************/
 
 /**
- * @file 12K-stm32f1.ld
+ * @file stm32f4.ld
  *
- * Linker script for ST STM32F1 bootloader (use first 12K of flash, 8K RAM).
+ * Linker script for ST STM32F3 bootloader (use first 8K of flash, all 48K RAM).
  *
  * @author Uwe Hermann <uwe@hermann-uwe.de>
  * @author Stephen Caudle <scaudle@doceme.com>
  */
 
 /* Define memory regions. */
-
 MEMORY
 {
-	rom (rx)  : ORIGIN = 0x08000000, LENGTH = 12K
-	ram (rwx) : ORIGIN = 0x20000000, LENGTH = 8K
+	rom (rx)  : ORIGIN = 0x08000000, LENGTH = 8K
+	ram (rwx) : ORIGIN = 0x20000000, LENGTH = 48K
 }
 
 /* Enforce emmission of the vector table. */
