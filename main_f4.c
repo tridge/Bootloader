@@ -725,6 +725,14 @@ main(void)
 
 #endif
 
+#define BL_DATA ((uint8_t *)(0x08000000 + 0x4000 - 16)) // last 16 bytes of block
+
+        if(BL_DATA[0] != 0xFF && BL_DATA[1] != 0xFF) { // set board info before board_init()
+
+            board_info.board_type = BL_DATA[0];
+            board_info.board_rev  = BL_DATA[1];
+        }
+
 	/* do board-specific initialisation */
 	board_init();
 
