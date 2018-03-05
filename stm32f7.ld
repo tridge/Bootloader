@@ -1,6 +1,6 @@
 /************************************************************************
  *
- *   Copyright (c) 2012-2014 PX4 Development Team. All rights reserved.
+ *   Copyright (c) 2012-2016 PX4 Development Team. All rights reserved.
  *   Copyright (c) 2010 libopencm3 project (Uwe Hermann, Stephen Caudle)
  *
  * This program is free software: you can redistribute it and/or modify
@@ -25,20 +25,19 @@
  ***********************************************************************/
 
 /**
- * @file 8K-stm32f1.ld
+ * @file stm32f4.ld
  *
- * Linker script for ST STM32F1 bootloader (use first 8K of flash, 8K RAM).
+ * Linker script for ST STM32F7 bootloader (use first 16K of flash, and 128K RAM).
  *
  * @author Uwe Hermann <uwe@hermann-uwe.de>
  * @author Stephen Caudle <scaudle@doceme.com>
  */
 
 /* Define memory regions. */
-
 MEMORY
 {
-	rom (rx)  : ORIGIN = 0x08000000, LENGTH = 8K
-	ram (rwx) : ORIGIN = 0x20000000, LENGTH = 8K
+	rom (rx)  : ORIGIN = 0x08000000, LENGTH = 16K
+	ram (rwx) : ORIGIN = 0x20000000, LENGTH = 128K
 }
 
 /* Enforce emmission of the vector table. */
@@ -108,4 +107,4 @@ SECTIONS
         end = .;
 }
 
-PROVIDE(_stack = 0x20002000);
+PROVIDE(_stack = 0x20020000);

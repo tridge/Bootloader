@@ -1,5 +1,9 @@
 .DS_Store
+.cproject
+.project
+.settings
 *.o
+*.d
 *.elf
 *.bin
 Bootloader.zip

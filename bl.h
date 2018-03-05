@@ -39,9 +39,16 @@
 
 #pragma once
 
-/***************************************************************************** 
+/*****************************************************************************
  * Generic bootloader functions.
  */
+
+/* enum for whether bootloading via USB or USART */
+enum {
+	NONE,
+	USART,
+	USB
+};
 
 /* board info forwarded from board-specific code to booloader */
 struct boardinfo {
@@ -72,7 +79,7 @@ extern volatile unsigned timer[NTIMERS];	/* each timer decrements every millisec
 extern void buf_put(uint8_t b);
 extern int buf_get(void);
 
-/***************************************************************************** 
+/*****************************************************************************
  * Chip/board functions.
  */
 
@@ -80,11 +87,22 @@ extern int buf_get(void);
 #define LED_ACTIVITY	1
 #define LED_BOOTLOADER	2
 
+#ifdef BOOT_DELAY_ADDRESS
+# define BOOT_DELAY_SIGNATURE1	0x92c2ecff
+# define BOOT_DELAY_SIGNATURE2	0xc5057d5d
+# define BOOT_DELAY_MAX		30
+#endif
+
+#define MAX_DES_LENGTH 20
+
+#define arraySize(a) (sizeof((a))/sizeof(((a)[0])))
 extern void led_on(unsigned led);
 extern void led_off(unsigned led);
 extern void led_toggle(unsigned led);
 
 /* flash helpers from main_*.c */
+extern void board_deinit(void);
+extern void clock_deinit(void);
 extern uint32_t flash_func_sector_size(unsigned sector);
 extern void flash_func_erase_sector(unsigned sector);
 extern void flash_func_write_word(uint32_t address, uint32_t word);
@@ -92,10 +110,15 @@ extern uint32_t flash_func_read_word(uint32_t address);
 extern uint32_t flash_func_read_otp(uint32_t address);
 extern uint32_t flash_func_read_sn(uint32_t address);
 
+extern uint32_t get_mcu_id(void);
+int get_mcu_desc(int max, uint8_t *revstr);
+extern int check_silicon(void);
+
 /*****************************************************************************
  * Interface in/output.
  */
-extern void cinit(void *config);
+
+extern void cinit(void *config, uint8_t interface);
 extern void cfini(void);
 extern int cin(void);
 extern void cout(uint8_t *buf, unsigned len);
