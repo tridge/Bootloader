@@ -897,6 +897,9 @@ main(void)
 
 #endif
 
+                if(timeout==0) continue; // never try to start if it disabled
+
+
 		/* set the boot-to-bootloader flag so that if boot fails on reset we will stop here */
 #ifdef BOARD_BOOT_FAIL_DETECT
 		board_set_rtc_signature(BOOT_RTC_SIGNATURE);
